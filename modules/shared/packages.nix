@@ -1,6 +1,7 @@
 { pkgs }:
 
 with pkgs;
+
 [
   # General packages for development and system management
   act
@@ -20,14 +21,10 @@ with pkgs;
   wget
   zip
 
-  # .NET
-  (with dotnetCorePackages; combinePackages [
-    sdk_8_0
-  ])
-
   # Encryption and security tools
   age
   age-plugin-yubikey
+  bitwarden-cli
   gnupg
   libfido2
   pinentry
@@ -46,21 +43,22 @@ with pkgs;
   ngrok
 
   # Media-related packages
-  emacs-all-the-icons-fonts
   dejavu_fonts
-  ffmpeg
+  emacs-all-the-icons-fonts
   fd
+  ffmpeg
   font-awesome
   hack-font
+  meslo-lgs-nf
   noto-fonts
   noto-fonts-emoji
-  meslo-lgs-nf
+  yt-dlp
 
   # Node.js development tools
-  nodePackages.nodemon
-  nodePackages.prettier
-  nodePackages.npm # globally install npm
   nodejs
+  nodePackages.nodemon
+  nodePackages.npm
+  nodePackages.prettier
 
   # Text and terminal utilities
   htop
@@ -68,9 +66,10 @@ with pkgs;
   iftop
   jetbrains-mono
   jq
+  parallel
   ripgrep
-  tree
   tmux
+  tree
   unrar
   unzip
   zsh-powerlevel10k

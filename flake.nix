@@ -1,3 +1,4 @@
+# nix flake update && nix run .#build-switch
 {
   description = "Starter Configuration with secrets for MacOS and NixOS";
   inputs = {
@@ -11,6 +12,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager.url = "github:nix-community/home-manager";
+    homebrew-fonts = {
+      url = "github:homebrew/homebrew-cask-fonts";
+      flake = false;
+    };
     homebrew-bundle = {
       url = "github:homebrew/homebrew-bundle";
       flake = false;
@@ -23,7 +28,7 @@
       url = "github:homebrew/homebrew-core";
       flake = false;
     };
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
     };
@@ -32,7 +37,7 @@
       flake = false;
     };
   };
-  outputs = { self, darwin, nix-homebrew, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
+  outputs = { self, darwin, nix-homebrew, homebrew-fonts, homebrew-bundle, homebrew-core, homebrew-cask, home-manager, nixpkgs, disko, agenix, secrets } @inputs:
     let
       user = "probablyadev";
       linuxSystems = [ "x86_64-linux" "aarch64-linux" ];
@@ -77,32 +82,36 @@
       devShells = forAllSystems devShell;
       apps = nixpkgs.lib.genAttrs linuxSystems mkLinuxApps // nixpkgs.lib.genAttrs darwinSystems mkDarwinApps;
 
-      darwinConfigurations = let user = "probablyadev"; in {
-        macos = darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          specialArgs = inputs;
-          modules = [
-            home-manager.darwinModules.home-manager
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                user = "${user}";
-                taps = {
-                  "homebrew/homebrew-core" = homebrew-core;
-                  "homebrew/homebrew-cask" = homebrew-cask;
-                  "homebrew/homebrew-bundle" = homebrew-bundle;
+      darwinConfigurations =
+        let
+          user = "probablyadev";
+        in
+        {
+          macos = darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            specialArgs = inputs;
+            modules = [
+              home-manager.darwinModules.home-manager
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  user = "${user}";
+                  taps = {
+                    "homebrew/cask-fonts" = homebrew-fonts;
+                    "homebrew/homebrew-core" = homebrew-core;
+                    "homebrew/homebrew-cask" = homebrew-cask;
+                    "homebrew/homebrew-bundle" = homebrew-bundle;
+                  };
+                  mutableTaps = false;
+                  extraEnv = {
+                    HOMEBREW_NO_ANALYTICS = "1";
+                  };
                 };
-                mutableTaps = true;
-                autoMigrate = true;
-                extraEnv = {
-                  HOMEBREW_NO_ANALYTICS = "1";
-                };
-              };
-            }
-            ./hosts/darwin
-          ];
-        };
+              }
+              ./hosts/darwin
+            ];
+          };
       };
 
       nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (system: nixpkgs.lib.nixosSystem {

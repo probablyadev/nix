@@ -24,6 +24,7 @@ in
     package = pkgs.nixUnstable;
 
     settings = {
+      access-tokens = "github.com=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";
       auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
@@ -47,7 +48,14 @@ in
   ] ++ (import ../../modules/shared/packages.nix { inherit pkgs; });
 
   # Enable fonts dir
-  fonts.fontDir.enable = true;
+  fonts = {
+    fonts = with pkgs; [
+      fira-code
+      fira-code-symbols
+    ];
+
+    fontDir.enable = true;
+  };
 
   # launchd.user.agents.emacs.path = [ config.environment.systemPath ];
   # launchd.user.agents.emacs.serviceConfig = {
@@ -112,6 +120,15 @@ in
 
         "com.apple.screencapture" = {
           "show-thumbnail" = false;
+        };
+
+        # https://learn.microsoft.com/en-au/sharepoint/deploy-and-configure-on-macos
+        "com.microsoft.OneDrive" = {
+          "AutomaticUploadBandwidthPercentage" = 99;
+          "DisableTutorial" = true;
+          "EnableSyncAdminReports" = 0;
+          "HideDockIcon" = true;
+          "KFMBlockOptIn" = 2;
         };
       };
 
@@ -178,6 +195,11 @@ in
       };
 
       SoftwareUpdate.AutomaticallyInstallMacOSUpdates = true;
+
+      smb = {
+        NetBIOSName = "A-Book-Shit-House";
+        ServerDescription = "A Book Shit House";
+      };
 
       trackpad = {
         Clicking = true;

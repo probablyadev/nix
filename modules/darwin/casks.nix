@@ -1,6 +1,12 @@
+# TODO: Place each group into its own folder under /Applications.
+# Package this: https://github.com/yantoz/FinderEx
 _:
 
 [
+  # Browsers
+  "google-chrome"
+  "microsoft-edge"
+
   # Communication Tools
   {
     name = "discord";
@@ -10,31 +16,51 @@ _:
 
   # Development Tools
   "docker"
+  "figma"
   "rider"
-  "visual-studio-code"
+  {
+    name = "visual-studio-code";
+    greedy = true;
+  }
 
   # Entertainment Tools
-	"guitar-pro"
+  "ableton-live-suite"
   "crossover"
+	"guitar-pro"
+  "iina"
   {
     name = "nvidia-geforce-now";
     greedy = true;
   }
+  "plex"
+  "reaper"
   {
     name = "steam";
     greedy = true;
   }
   "xemu"
 
+  # Graphics
+  "graphicconverter"
+
   # Productivity Tools
   "cheatsheet"
-  "raycast"
+  "gramps"
+  {
+    name = "raycast";
+    greedy = true;
+  }
 
   # Utility Tools
+  "apparency"
   "betterzip"
   "little-snitch"
   {
     name = "onedrive";
     greedy = true;
   }
+  "qlmarkdown"
+  "qlvideo"
+  "syntax-highlight"
+  "webpquicklook"
 ]

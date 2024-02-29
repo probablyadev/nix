@@ -1,3 +1,5 @@
+# https://github.com/nix-community/home-manager/tree/master/modules/programs
+
 { config, pkgs, lib, ... }:
 
 let
@@ -69,6 +71,15 @@ in
     };
   };
 
+  dotnet = {
+    enable = true;
+    package = (with pkgs.dotnetCorePackages; combinePackages [
+      sdk_6_0
+      sdk_7_0
+      sdk_8_0
+    ]);
+  };
+
   git = {
     enable = true;
     ignores = [
@@ -82,15 +93,23 @@ in
     lfs.enable = true;
     signing.key = "F2CF1DD36D0744F7";
     extraConfig = {
-      init.defaultBranch = "main";
+      commit.gpgsign = true;
       core = {
-	      editor = "nano";
+	      editor = "${pkgs.nano}/bin/nano";
         autocrlf = "input";
       };
-      commit.gpgsign = true;
+      http.postBuffer = 524288000;
+      init.defaultBranch = "main";
       pull.rebase = true;
       rebase.autoStash = true;
     };
+  };
+
+  git-credential-oauth.enable = true;
+
+  java = {
+    enable = true;
+    package = pkgs.jdk19;
   };
 
   ssh = {
@@ -195,7 +214,7 @@ in
       bind-key -T copy-mode-vi 'C-l' select-pane -R
       bind-key -T copy-mode-vi 'C-\' select-pane -l
       '';
-    };
+  };
 
   # Shared shell configuration
   zsh = {
@@ -231,18 +250,13 @@ in
       # Ripgrep alias
       alias search=rg -p --glob '!node_modules/*'  $@
 
-      # Emacs is my editor
       export EDITOR="nano"
       export VISUAL="code"
 
       # nix shortcuts
       shell() {
-          nix-shell '<nixpkgs>' -A "$1"
+        nix-shell '<nixpkgs>' -A "$1"
       }
-
-      # pnpm is a javascript package manager
-      alias pn=pnpm
-      alias px=pnpx
 
       # Use difftastic, syntax-aware diffing
       alias diff=difft

@@ -27,13 +27,15 @@ let
 
 in
 {
+  imports = [ ../../options/home-manager ];
+
   home = {
     enableNixpkgsReleaseCheck = false;
     username = "${user}";
     homeDirectory = "/home/${user}";
     packages = pkgs.callPackage ./packages.nix {};
     file = shared-files // import ./files.nix { inherit user; };
-    stateVersion = "21.05";
+    stateVersion = "23.11";
   };
 
   # Use a dark theme
@@ -115,5 +117,4 @@ in
   };
 
   programs = shared-programs // { gpg.enable = true; };
-
 }
