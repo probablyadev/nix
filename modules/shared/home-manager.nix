@@ -105,8 +105,6 @@ in
     };
   };
 
-  git-credential-oauth.enable = true;
-
   java = {
     enable = true;
     package = pkgs.jdk19;
