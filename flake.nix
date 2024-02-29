@@ -98,7 +98,7 @@
                   enable = true;
                   user = "${user}";
                   taps = {
-                    "homebrew/cask-fonts" = homebrew-fonts;
+                    "homebrew/homebrew-cask-fonts" = homebrew-fonts;
                     "homebrew/homebrew-core" = homebrew-core;
                     "homebrew/homebrew-cask" = homebrew-cask;
                     "homebrew/homebrew-bundle" = homebrew-bundle;
