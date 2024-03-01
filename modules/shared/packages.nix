@@ -13,6 +13,7 @@ with pkgs;
   btop
   coreutils
   killall
+  mono
   neofetch
   openssh
   pandoc
