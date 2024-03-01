@@ -19,6 +19,7 @@ _:
   # Development Tools
   "docker"
   "figma"
+  "fork"
   "rider"
   {
     name = "visual-studio-code";
