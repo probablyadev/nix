@@ -81,6 +81,7 @@ in
   };
 
   git = {
+    attributes = [ "* text=auto" ];
     enable = true;
     ignores = [
       ".DS_Store"
@@ -92,6 +93,9 @@ in
     userEmail = email;
     lfs.enable = true;
     signing.key = "F2CF1DD36D0744F7";
+    userName = name;
+    userEmail = email;
+
     extraConfig = {
       commit.gpgsign = true;
       core = {

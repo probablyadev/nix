@@ -51,8 +51,8 @@ in
     };
   };
 
-  # Screen lock
   services = {
+    # Screen lock
     screen-locker = {
       enable = true;
       inactiveInterval = 10;
