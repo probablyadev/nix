@@ -24,7 +24,6 @@ in
     package = pkgs.nixUnstable;
 
     settings = {
-      access-tokens = "github.com=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";
       auto-allocate-uids = true;
       auto-optimise-store = true;
       builders-use-substitutes = true;
