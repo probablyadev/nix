@@ -7,6 +7,9 @@ _:
   "google-chrome"
   "microsoft-edge"
 
+  # Cloud Storage
+  "google-drive"
+
   # Communication Tools
   {
     name = "discord";
