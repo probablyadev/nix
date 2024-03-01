@@ -57,6 +57,7 @@ _:
 
   # Utility Tools
   "apparency"
+  "betterdisplay"
   "betterzip"
   "little-snitch"
   {
