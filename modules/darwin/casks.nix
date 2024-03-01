@@ -14,6 +14,7 @@ _:
   }
   "microsoft-teams"
   "netnewswire"
+  "slack"
 
   # Development Tools
   "docker"
@@ -51,6 +52,7 @@ _:
     name = "raycast";
     greedy = true;
   }
+  "timemator"
 
   # Utility Tools
   "apparency"
