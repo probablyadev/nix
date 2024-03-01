@@ -12,6 +12,7 @@ _:
     name = "discord";
     greedy = true;
   }
+  "microsoft-teams"
   "netnewswire"
 
   # Development Tools
