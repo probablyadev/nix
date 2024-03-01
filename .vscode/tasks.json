@@ -4,10 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "nix: flake update",
+            "type": "shell",
+            "command": "nix flake update",
+        },
+        {
             "label": "nix: build",
             "type": "shell",
-            "command": "nix flake update && sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin; nix run --fallback .#build-switch; nix store gc",
-            "problemMatcher": [],
+            "command": "sudo mv /etc/bashrc /etc/bashrc.before-nix-darwin; nix run --fallback .#build-switch; nix store gc",
             "group": {
                 "kind": "build",
                 "isDefault": true
