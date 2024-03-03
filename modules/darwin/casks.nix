@@ -67,6 +67,7 @@ _:
     name = "onedrive";
     greedy = true;
   }
+  "mediamate"
   "qlmarkdown"
   "qlvideo"
   "syntax-highlight"
